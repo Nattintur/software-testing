@@ -9,16 +9,15 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 def is_element_present(self, *args):
-  try:
-    self.driver.find_element(*args)
-    return True
-  except NoSuchElementException:
-    return False
+    try:
+        self.driver.find_element(*args)
+        return True
+    except NoSuchElementException:
+        return False
 
 
 def sign_in(self, user, password_user):
-
-    assert(is_element_present(self, By.NAME, 'username'))
+    assert (is_element_present(self, By.NAME, 'username'))
     login = self.driver.find_element(By.NAME, 'username')
     login.send_keys(user)
 
@@ -35,7 +34,7 @@ def sign_in(self, user, password_user):
     button.click()
 
 
-class SignInAdmin(unittest.TestCase):
+class LeftMenu(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
         # self.driver.implicitly_wait(30)
@@ -50,7 +49,8 @@ class SignInAdmin(unittest.TestCase):
 
         sign_in(self, "admin", "admin")
 
-        WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "[class*='fa-sign-out']")))
+        WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, "#sidebar")))
 
         current_outer_index = 0
         list_menu = self.driver.find_elements(By.ID, "app-")
@@ -68,20 +68,17 @@ class SignInAdmin(unittest.TestCase):
             except TimeoutException:
                 sub_menu = ""
 
-            while(current_inner_index < len(sub_menu)):
-
-
+            while (current_inner_index < len(sub_menu)):
                 sub_menu[current_inner_index].click()
                 assert (is_element_present(self, By.TAG_NAME, 'h1'))
 
-                current_inner_index = current_inner_index+1
+                current_inner_index = current_inner_index + 1
 
                 sub_menu = self.driver.find_elements(By.CSS_SELECTOR, "[id*='doc-']")
 
             current_outer_index = current_outer_index + 1
 
             list_menu = self.driver.find_elements(By.ID, "app-")
-
 
     def tearDown(self):
         self.driver.quit()
