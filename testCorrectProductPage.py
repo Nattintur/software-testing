@@ -34,7 +34,7 @@ class CorrectProductPage(unittest.TestCase):
 
         product_name = self.driver.find_element(By.CSS_SELECTOR, "#box-product h1.title").text
 
-        assert first_product_name in product_name
+        assert first_product_name == product_name
 
     # б)
     def test_product_price(self):
@@ -54,8 +54,8 @@ class CorrectProductPage(unittest.TestCase):
         is_campaign_price_correct = first_product_campaign_price == product_campaign_price
 
         assert is_regular_price_correct or is_campaign_price_correct, "Цены не соответствуют тем, что указаны на главной странице"
-        assert is_regular_price_correct, "Обычная цена не соответствуют тем, что указаны на главной странице"
-        assert is_campaign_price_correct, "Аукционная цена не соответствуют тем, что указаны на главной странице"
+        assert is_regular_price_correct, "Обычная цена не соответствует той, что указана на главной странице"
+        assert is_campaign_price_correct, "Аукционная цена не соответствует той, что указана на главной странице"
 
     # в)
     def test_style_price(self):
