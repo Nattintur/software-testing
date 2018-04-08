@@ -94,13 +94,13 @@ class CorrectProductPage(unittest.TestCase):
 
         error_message = ""
 
-        if (is_first_product_campaign_price_bold != True):
+        if not is_first_product_campaign_price_bold:
             error_message = "На главной странице текст для аукционной цены нежирного начертания"
 
-        if (is_first_product_campaign_price_color != True):
+        if not is_first_product_campaign_price_color:
             error_message = "На главной странице цвет текста для аукционной цены некрасный"
 
-        if (is_first_product_campaign_price_bold != True and is_first_product_campaign_price_color != True):
+        if not is_first_product_campaign_price_bold and not is_first_product_campaign_price_color:
             error_message = "На главной странице цвет текста для аукционой цены не соответствует красному и текст нежирный"
 
         # для продуктовой
